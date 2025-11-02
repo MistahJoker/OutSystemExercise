@@ -59,6 +59,10 @@ namespace EventBookingSystem.DBAccess.MockUp
 
         public void DeleteEvent(int eventId)
         {
+            if (eventId <= 0)
+            {
+                throw new ArgumentException(nameof(eventId));
+            }
             var evnt = _db.Events.FirstOrDefault(e => e.EventId == eventId);
             if (evnt == null)
             {

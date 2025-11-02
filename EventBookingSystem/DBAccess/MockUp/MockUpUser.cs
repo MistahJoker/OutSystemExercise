@@ -78,7 +78,7 @@ namespace EventBookingSystem.DBAccess.MockUp
         }
         public void DeleteUser(int userId)
         {
-            if (userId > 0)
+            if (userId <=0)
             {
                 throw new ArgumentException(nameof(userId));
             }

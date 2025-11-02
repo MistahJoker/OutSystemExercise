@@ -52,7 +52,7 @@ namespace EventBookingSystem.DBAccess.MockUp
         }
         public void DeleteVenue(int venueId)
         {
-            if (venueId > 0)
+            if (venueId <= 0)
             {
                 throw new ArgumentException(nameof(venueId));
             }
