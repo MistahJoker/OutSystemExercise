@@ -91,7 +91,7 @@ namespace EventBookingSystem.DBAccess.MockUp
             var allBookingAtVenue = _db.Bookings
                                 .Where(b => eventIdsForVenue.Contains(b.EventId))
                                 .ToList();
-            var paidUserIds = _db.Bookings
+            var paidUserIds = allBookingAtVenue
                                 .Where(b => b.PaymentStatus == PaymentStatus.Paid)
                                 .Select(u => u.UserId)
                                 .Distinct()
