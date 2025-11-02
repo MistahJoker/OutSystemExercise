@@ -32,5 +32,9 @@ namespace EventBookingSystem.Entities
         {
             SeatingType?.ManageSeating();
         }
+        public override string ToString()
+        {
+            return $"Event {EventId} at {Venue?.VenueId} on {Date.ToShortDateString()}";
+        }
     }
 }

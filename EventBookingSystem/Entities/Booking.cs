@@ -30,5 +30,9 @@ namespace EventBookingSystem.Entities
             Event = evnt;
             EventId = evnt.EventId;
         }
+        public override string ToString()
+        {
+            return $"Booking {BookingId} for User {User?.UserId} at Event {Event?.EventId} and Payment Status {PaymentStatus}";
+        }
     }
 }

@@ -9,40 +9,31 @@ public class EventBookingDbContext : DbContext
     public DbSet<Venue> Venues { get; set; }
     public DbSet<Event> Events { get; set; }
     public DbSet<Booking> Bookings { get; set; }
-
-    // This is some boilerplate to tell it where to find the db file
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
-        // For this to work, it just needs a simple connection string
         options.UseSqlite("Data Source=events.db");
     }
-
-    // This part is optional but good practice.
-    // It explicitly tells EF Core about your relationships.
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Booking>()
-            .HasOne(b => b.User)          // A Booking has one User
-            .WithMany(u => u.Bookings)    // A User has many Bookings
-            .HasForeignKey(b => b.UserId); // The link is the UserId
-
+            .HasOne(b => b.User)
+            .WithMany(u => u.Bookings)
+            .HasForeignKey(b => b.UserId);
         modelBuilder.Entity<Booking>()
-            .HasOne(b => b.Event)         // A Booking has one Event
-            .WithMany(e => e.Bookings)    // An Event has many Bookings
-            .HasForeignKey(b => b.EventId); // The link is the EventId
+            .HasOne(b => b.Event)
+            .WithMany(e => e.Bookings)
+            .HasForeignKey(b => b.EventId);
 
         modelBuilder.Entity<Event>()
-            .HasOne(e => e.Venue)         // An Event has one Venue
-            .WithMany(v => v.Events)      // A Venue has many Events
-            .HasForeignKey(e => e.VenueId); // The link is the VenueId
+            .HasOne(e => e.Venue)
+            .WithMany(v => v.Events)
+            .HasForeignKey(e => e.VenueId);
 
         
-        // This tells EF Core to ignore the ISeatingStrategy
-        // property, since it can't be stored in a database column.
+        //Ignore the ISeatingStrategy
         modelBuilder.Entity<Event>()
             .Ignore(e => e.SeatingType);
         
-        // This tells EF Core how to save your enum
         modelBuilder.Entity<Booking>()
             .Property(b => b.PaymentStatus)
             .HasConversion<string>(); // Saves the enum as a string
