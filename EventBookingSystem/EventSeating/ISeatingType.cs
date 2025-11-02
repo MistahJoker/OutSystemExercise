@@ -8,6 +8,6 @@ namespace EventBookingSystem.EventSeating
 {
     public interface ISeatingType
     {
-        public void ManageSeating();
+        void ManageSeating();
     }
 }
