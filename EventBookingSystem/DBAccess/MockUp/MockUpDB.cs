@@ -32,9 +32,9 @@ namespace EventBookingSystem.DBAccess.MockUp
             var user2 = new User { UserId = 2 };
             Users.AddRange(new[] { user1, user2 });
             //Create Events
-            var event1 = new Event(openAirStrategy, venue1) { EventId = 1 };
-            var event2 = new Event(reservedStrategy, venue2) { EventId = 2 };
-            var event3 = new Event(sectionedStrategy, venue1) { EventId = 3 };
+            var event1 = new Event(openAirStrategy, venue1) { EventId = 1 ,Date=DateTime.Now.AddDays(1) };
+            var event2 = new Event(reservedStrategy, venue2) { EventId = 2 ,Date=DateTime.MinValue };
+            var event3 = new Event(sectionedStrategy, venue1) { EventId = 3, Date=DateTime.MaxValue };
             Events.AddRange(new[] { event1, event2, event3 });
             //Create Bookings
             var booking1 = new Booking(user1, event1) { BookingId = 1 };

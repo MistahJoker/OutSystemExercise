@@ -18,6 +18,7 @@ namespace EventBookingSystem.Entities
         public Venue? Venue { get; set; }
         //List of bookings made for this event, not referenced in the DB but we can load them as needed for convenience
         public List<Booking> Bookings { get; set; } = new List<Booking>();
+        public DateTime Date { get; set; }
         //Needed for the Entity Framework
         private Event() { }
 

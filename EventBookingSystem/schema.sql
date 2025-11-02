@@ -38,5 +38,10 @@ CREATE INDEX "IX_Events_VenueId" ON "Events" ("VenueId");
 INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
 VALUES ('20251030164608_InitialCreate', '9.0.10');
 
+ALTER TABLE "Events" ADD "Date" TEXT NOT NULL DEFAULT '0001-01-01 00:00:00';
+
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20251102025217_AddDateToEvent', '9.0.10');
+
 COMMIT;
 

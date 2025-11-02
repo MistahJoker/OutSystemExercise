@@ -18,7 +18,11 @@ namespace EventBookingSystem.DBAccess.MockUp
         {
             return _db.Events;
         }
-
+        
+        public List<Event> GetFutureEventsWithAvailability()
+        {
+            return _db.Events.Where(e => e.Date>DateTime.Now).ToList();
+        }
         public Event? GetEventById(int eventId)
         {
             if (eventId <= 0)
