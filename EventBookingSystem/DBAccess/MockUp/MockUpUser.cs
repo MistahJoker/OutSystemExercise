@@ -35,7 +35,6 @@ namespace EventBookingSystem.DBAccess.MockUp
 
             return _db.Users.FirstOrDefault(u => u.UserId == userId);
         }
-        
         public User? GetUserByIdIncludingBookings(int userId)
         {
             if (userId <=0)
@@ -91,6 +90,26 @@ namespace EventBookingSystem.DBAccess.MockUp
             _db.Users.Remove(existingUser);
 
         }
-        
+        public List<User> FindUsersWithoutBookingsInVenue(int venueId)
+        {
+            if (venueId <= 0)
+            {
+                throw new ArgumentException(nameof(venueId));
+            }
+            var eventsAtVenue = _db.Events
+                                .Where(e => e.VenueId == venueId)
+                                .Select(e => e.EventId)
+                                .Distinct()
+                                .ToList();
+            var userIdsWithBookingsAtVenue = _db.Bookings
+                                        .Where(b => eventsAtVenue.Contains(b.EventId))
+                                        .Select(b => b.UserId)
+                                        .Distinct()
+                                        .ToList();
+            var usersWithoutBookingsAtVenue = _db.Users
+                                        .Where(u => !userIdsWithBookingsAtVenue.Contains(u.UserId))
+                                        .ToList();
+            return usersWithoutBookingsAtVenue;
+        }
     }
 }

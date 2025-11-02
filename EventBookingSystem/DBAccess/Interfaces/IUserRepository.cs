@@ -11,5 +11,6 @@ namespace EventBookingSystem.DBAccess.Interfaces
         User AddUser(User user);
         void UpdateUser(User user);
         void DeleteUser(int userId);
+        List<User> FindUsersWithoutBookingsInVenue(int venueId);
     }
 }

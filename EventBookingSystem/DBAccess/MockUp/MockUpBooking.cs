@@ -78,5 +78,29 @@ namespace EventBookingSystem.DBAccess.MockUp
             }
             _db.Bookings.Remove(booking);
         }
+        public List<Booking> FindBookingsForPaidUsersAtVenue(int venueId)
+        {
+            if (venueId <= 0)
+            {
+                throw new ArgumentException(nameof(venueId));
+            }
+            var eventIdsForVenue=_db.Events
+                                .Where(e=>e.VenueId==venueId)
+                                .Select(e=>e.EventId)
+                                .ToList();
+            var allBookingAtVenue = _db.Bookings
+                                .Where(b => eventIdsForVenue.Contains(b.EventId))
+                                .ToList();
+            var paidUserIds = _db.Bookings
+                                .Where(b => b.PaymentStatus == PaymentStatus.Paid)
+                                .Select(u => u.UserId)
+                                .Distinct()
+                                .ToList();
+            var bookings = allBookingAtVenue
+                        .Where(b => paidUserIds.Contains(b.UserId))
+                        .ToList();
+            return bookings;
+        }
+
     }
 }
