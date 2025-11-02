@@ -90,12 +90,14 @@ Console.WriteLine("\n======================================");
 Console.WriteLine("Test 3: Advanced SQL-like querries");
 Console.WriteLine("======================================");
 
+Console.WriteLine("--- FindBookingsForPaidUsersAtVenue(1) ---");
 List<Booking> paidUserBookings= bookingRepository.FindBookingsForPaidUsersAtVenue(1);
 foreach (var booking in paidUserBookings)
 {
     Console.WriteLine(booking.ToString());
 }
 
+Console.WriteLine("--- FindUsersWithoutBookingsInVenue(2) ---");
 List<User> usersWithoutBookings = userRepository.FindUsersWithoutBookingsInVenue(2);
 foreach (var user in usersWithoutBookings)
 {
