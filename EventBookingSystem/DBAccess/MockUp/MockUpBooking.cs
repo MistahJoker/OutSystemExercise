@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using EventBookingSystem.DBAccess.Interfaces;
 using EventBookingSystem.Entities;
 using EventBookingSystem.EventSeating;
@@ -26,13 +27,14 @@ namespace EventBookingSystem.DBAccess.MockUp
             return _db.Bookings.FirstOrDefault(b => b.BookingId == bookingId);
         }
 
-        public List<Booking>? GetBookingsByEventId(int eventId)
+        public List<Booking> GetBookingsByEventId(int eventId)
         {
-            if (eventId<=0)
+            if (eventId <= 0)
             {
                 throw new ArgumentException(nameof(eventId));
             }
-            return _db.Bookings.Any() ? _db.Bookings.Where (b => b.Event != null && b.Event.EventId == eventId).ToList() : null;
+            
+            return _db.Bookings.Where(b => b.Event!=null && b.EventId == eventId).ToList();
         }
 
         public Booking AddBooking(Booking booking)

@@ -11,7 +11,7 @@ namespace EventBookingSystem.ExternalAPIs
         public PaymentResult ProcessPayment(string CardNumber)
         {
             Console.WriteLine("Processing payment with card number: " + CardNumber);
-            return new PaymentResult("12345"){ IsSuccessful = true }; ;
+            return new PaymentResult(12345){ IsSuccessful = true }; ;
         }
     }
 }

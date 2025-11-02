@@ -9,9 +9,9 @@ namespace EventBookingSystem.ExternalAPIs
     public class PaymentResult
     {
         public bool IsSuccessful { get; set; }
-        public string PaymentId { get; set; }
+        public int PaymentId { get; set; }
 
-        public PaymentResult(string paymentId)
+        public PaymentResult(int paymentId)
         {
             PaymentId = paymentId;
         }

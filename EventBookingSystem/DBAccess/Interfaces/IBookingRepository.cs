@@ -6,7 +6,7 @@ namespace EventBookingSystem.DBAccess.Interfaces
     {
         List<Booking> GetAllBookings();
         Booking? GetBookingById(int bookingId);
-        List<Booking>? GetBookingsByEventId(int eventId);
+        List<Booking> GetBookingsByEventId(int eventId);
         Booking AddBooking(Booking booking);
         void UpdateBooking(Booking booking);
         void DeleteBooking(int bookingId);
