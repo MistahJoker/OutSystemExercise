@@ -28,7 +28,7 @@ namespace EventBookingSystem.DBAccess.MockUp
         }
         public User? GetUserById(int userId)
         {
-            if (userId > 0)
+            if (userId <=0)
             {
                 throw new ArgumentException(nameof(userId));
             }
@@ -38,7 +38,7 @@ namespace EventBookingSystem.DBAccess.MockUp
         
         public User? GetUserByIdIncludingBookings(int userId)
         {
-            if (userId > 0)
+            if (userId <=0)
             {
                 throw new ArgumentException(nameof(userId));
             }

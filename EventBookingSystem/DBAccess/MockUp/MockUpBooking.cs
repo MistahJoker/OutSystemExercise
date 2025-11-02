@@ -35,7 +35,7 @@ namespace EventBookingSystem.DBAccess.MockUp
 
         public Booking? GetBookingById(int bookingId)
         {
-            if (bookingId > 0)
+            if (bookingId<=0)
             {
                 throw new ArgumentException(nameof(bookingId));
             }
@@ -44,7 +44,7 @@ namespace EventBookingSystem.DBAccess.MockUp
 
         public List<Booking>? GetBookingsByEventId(int eventId)
         {
-            if (eventId > 0)
+            if (eventId<=0)
             {
                 throw new ArgumentException(nameof(eventId));
             }

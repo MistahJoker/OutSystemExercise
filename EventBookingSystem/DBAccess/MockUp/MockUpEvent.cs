@@ -30,7 +30,7 @@ namespace EventBookingSystem.DBAccess.MockUp
 
         public Event? GetEventById(int eventId)
         {
-            if (eventId > 0)
+            if (eventId <=0)
             {
                 throw new ArgumentException(nameof(eventId));
             }

@@ -18,7 +18,7 @@ namespace EventBookingSystem.DBAccess.MockUp
         }
         public Venue? GetVenueById(int venueId)
         {
-            if (venueId>0)
+            if (venueId<=0)
             {
                 throw new ArgumentException(nameof(venueId));
             }
