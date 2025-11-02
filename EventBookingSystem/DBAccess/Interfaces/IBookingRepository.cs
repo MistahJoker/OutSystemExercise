@@ -11,5 +11,8 @@ namespace EventBookingSystem.DBAccess.Interfaces
         void UpdateBooking(Booking booking);
         void DeleteBooking(int bookingId);
         List<Booking> FindBookingsForPaidUsersAtVenue(int venueId);
+        List<Booking> GetBookingsByUserId(int userId);
+        List<Booking> GetBookingsByVenueId(int venueId);
+    
     }
 }

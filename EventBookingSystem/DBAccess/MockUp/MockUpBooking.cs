@@ -84,9 +84,9 @@ namespace EventBookingSystem.DBAccess.MockUp
             {
                 throw new ArgumentException(nameof(venueId));
             }
-            var eventIdsForVenue=_db.Events
-                                .Where(e=>e.VenueId==venueId)
-                                .Select(e=>e.EventId)
+            var eventIdsForVenue = _db.Events
+                                .Where(e => e.VenueId == venueId)
+                                .Select(e => e.EventId)
                                 .ToList();
             var allBookingAtVenue = _db.Bookings
                                 .Where(b => eventIdsForVenue.Contains(b.EventId))
@@ -101,6 +101,30 @@ namespace EventBookingSystem.DBAccess.MockUp
                         .ToList();
             return bookings;
         }
+        public List<Booking> GetBookingsByUserId(int userId)
+        {
+            if (userId <= 0)
+            {
+                throw new ArgumentException(nameof(userId));
+            }
+            return _db.Bookings.Where(b =>b.UserId == userId).ToList();
+        }
+        public List<Booking> GetBookingsByVenueId(int venueId)
+        { 
+            if (venueId <= 0)
+            {
+                throw new ArgumentException(nameof(venueId));
+            }
+            var eventIdsForVenue = _db.Events
+                                .Where(e => e.VenueId == venueId)
+                                .Select(e => e.EventId)
+                                .ToList();
+            var bookings = _db.Bookings
+                                .Where(b => eventIdsForVenue.Contains(b.EventId))
+                                .ToList();
+            return bookings;
+        }
+    
 
     }
 }
