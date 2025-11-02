@@ -16,12 +16,13 @@ CREATE TABLE "Venues" (
 CREATE TABLE "Events" (
     "EventId" INTEGER NOT NULL CONSTRAINT "PK_Events" PRIMARY KEY AUTOINCREMENT,
     "VenueId" INTEGER NOT NULL,
+    "Date" TEXT NOT NULL,
     CONSTRAINT "FK_Events_Venues_VenueId" FOREIGN KEY ("VenueId") REFERENCES "Venues" ("VenueId") ON DELETE CASCADE
 );
 
 CREATE TABLE "Bookings" (
     "BookingId" INTEGER NOT NULL CONSTRAINT "PK_Bookings" PRIMARY KEY AUTOINCREMENT,
-    "PaymentId" INTEGER NOT NULL,
+    "PaymentId" TEXT NULL,
     "PaymentStatus" TEXT NOT NULL,
     "UserId" INTEGER NOT NULL,
     "EventId" INTEGER NOT NULL,
@@ -36,12 +37,7 @@ CREATE INDEX "IX_Bookings_UserId" ON "Bookings" ("UserId");
 CREATE INDEX "IX_Events_VenueId" ON "Events" ("VenueId");
 
 INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
-VALUES ('20251030164608_InitialCreate', '9.0.10');
-
-ALTER TABLE "Events" ADD "Date" TEXT NOT NULL DEFAULT '0001-01-01 00:00:00';
-
-INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
-VALUES ('20251102025217_AddDateToEvent', '9.0.10');
+VALUES ('20251102114742_InitialCreate', '9.0.10');
 
 COMMIT;
 

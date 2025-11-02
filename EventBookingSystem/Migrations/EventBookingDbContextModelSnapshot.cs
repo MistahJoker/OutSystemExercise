@@ -26,8 +26,8 @@ namespace EventBookingSystem.Migrations
                     b.Property<int>("EventId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("PaymentId")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("PaymentId")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("PaymentStatus")
                         .IsRequired()

@@ -9,7 +9,7 @@ namespace EventBookingSystem.Entities
     public class Booking
     {
         public int BookingId { get; set; }
-        public int PaymentId { get; set; }
+        public string? PaymentId { get; set; }
         //Enum
         public PaymentStatus PaymentStatus { get; set; }
         //Foreign Key
