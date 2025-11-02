@@ -1,0 +1,17 @@
+## C# / .NET Core ##
+# Ignore all build output folders
+[Bb]in/
+[Oo]bj/
+
+# Ignore Visual Studio and VS Code specific files
+.vs/
+.vscode/
+
+# Ignore user-specific settings files
+*.user
+*.suo
+
+# Ignore generated database files
+# (like the 'events.db' from our Sqlite example)
+*.db
+*.db-journal
