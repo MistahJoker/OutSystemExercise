@@ -6,31 +6,15 @@ namespace EventBookingSystem.DBAccess.MockUp
 {
     public class MockUpBooking : IBookingRepository
     {
-        private readonly List<Booking> _bookings;
-
-        // Constructor to initialize with some mock data
-        public MockUpBooking()
+        private readonly MockUpDB _db;
+        public MockUpBooking(MockUpDB db)
         {
-            //Just to help create the bookings
-            User _user1 = new User { UserId = 1 };
-            User _user2 = new User { UserId = 2 };  
-            Venue _venue1 = new Venue { VenueId = 1 };
-            Venue _venue2 = new Venue { VenueId = 2 };
-            Event _event1 = new Event(new OpenAirSeatType(), _venue1) { EventId = 1 };
-            Event _event2 = new Event(new ReservedSeatType(), _venue2) { EventId = 2 };
-
-            _bookings = new List<Booking>
-            {
-                new Booking(_user1, _event1) { BookingId = 1, PaymentStatus = PaymentStatus.Paid },
-                new Booking(_user2, _event2) { BookingId = 2, PaymentStatus = PaymentStatus.Pending },
-                new Booking(_user1, _event2) { BookingId = 3, PaymentStatus = PaymentStatus.Failed },
-                new Booking(_user2, _event1) { BookingId = 4, PaymentStatus = PaymentStatus.Refunded }
-            };
+            _db = db;
         }
 
         public List<Booking> GetAllBookings()
         {
-            return _bookings;
+            return _db.Bookings;
         }
 
         public Booking? GetBookingById(int bookingId)
@@ -39,7 +23,7 @@ namespace EventBookingSystem.DBAccess.MockUp
             {
                 throw new ArgumentException(nameof(bookingId));
             }
-            return _bookings.FirstOrDefault(b => b.BookingId == bookingId);
+            return _db.Bookings.FirstOrDefault(b => b.BookingId == bookingId);
         }
 
         public List<Booking>? GetBookingsByEventId(int eventId)
@@ -48,7 +32,7 @@ namespace EventBookingSystem.DBAccess.MockUp
             {
                 throw new ArgumentException(nameof(eventId));
             }
-            return _bookings.Any() ? _bookings.Where (b => b.Event != null && b.Event.EventId == eventId).ToList() : null;
+            return _db.Bookings.Any() ? _db.Bookings.Where (b => b.Event != null && b.Event.EventId == eventId).ToList() : null;
         }
 
         public Booking AddBooking(Booking booking)
@@ -58,9 +42,9 @@ namespace EventBookingSystem.DBAccess.MockUp
                 throw new ArgumentNullException(nameof(booking));
             }
             //simulate auto-incrementing primary key
-            int newBookingId = _bookings.Any() ? _bookings.Max(b => b.BookingId) + 1 : 1;
+            int newBookingId = _db.Bookings.Any() ? _db.Bookings.Max(b => b.BookingId) + 1 : 1;
             booking.BookingId = newBookingId;
-            _bookings.Add(booking);
+            _db.Bookings.Add(booking);
             return booking;
         }
 
@@ -70,7 +54,7 @@ namespace EventBookingSystem.DBAccess.MockUp
             {
                 throw new ArgumentNullException(nameof(booking));
             }
-            var existingBooking = _bookings.FirstOrDefault(b => b.BookingId == booking.BookingId);
+            var existingBooking = _db.Bookings.FirstOrDefault(b => b.BookingId == booking.BookingId);
             if (existingBooking == null)
             {
                 throw new ArgumentException($"Booking with BookingId {booking.BookingId} does not exist.");
@@ -85,12 +69,12 @@ namespace EventBookingSystem.DBAccess.MockUp
             {
                 throw new ArgumentException(nameof(bookingId));
             }
-            var booking = _bookings.FirstOrDefault(b => b.BookingId == bookingId);
+            var booking = _db.Bookings.FirstOrDefault(b => b.BookingId == bookingId);
             if (booking == null)
             {
                 throw new ArgumentException($"Booking with BookingId {bookingId} does not exist.");
             }
-            _bookings.Remove(booking);
+            _db.Bookings.Remove(booking);
         }
     }
 }

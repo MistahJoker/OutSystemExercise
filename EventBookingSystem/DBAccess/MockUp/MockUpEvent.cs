@@ -6,35 +6,26 @@ namespace EventBookingSystem.DBAccess.MockUp
 {
     public class MockUpEvent : IEventRepository
     {
-        private readonly List<Event> _events;
+        private readonly MockUpDB _db;
 
         // Constructor to initialize with some mock data
-        public MockUpEvent()
+        public MockUpEvent(MockUpDB db)
         {
-            //Just to help create the Events 
-            Venue _venue1 = new Venue { VenueId = 1 };
-            Venue _venue2 = new Venue { VenueId = 2 };
-
-            _events = new List<Event>
-            {
-                new Event(new OpenAirSeatType(), _venue1) { EventId = 1},
-                new Event(new ReservedSeatType(), _venue2) { EventId = 2 },
-                new Event(new SectionedSeatType(), _venue1) { EventId = 3 }
-            };
+            _db = db;
         }
 
         public List<Event> GetAllEvents()
         {
-            return _events;
+            return _db.Events;
         }
 
         public Event? GetEventById(int eventId)
         {
-            if (eventId <=0)
+            if (eventId <= 0)
             {
-                throw new ArgumentException(nameof(eventId));
+                throw new ArgumentException("Event ID must be greater than 0.", nameof(eventId));
             }
-            return _events.FirstOrDefault(e => e.EventId == eventId);
+            return _db.Events.FirstOrDefault(e => e.EventId == eventId);
         }
 
         public Event AddEvent(Event evnt)
@@ -44,9 +35,9 @@ namespace EventBookingSystem.DBAccess.MockUp
                 throw new ArgumentNullException(nameof(evnt));
             }
             //simulate auto-incrementing primary key
-            int newEventId = _events.Any() ? _events.Max(e => e.EventId) + 1 : 1;
+            int newEventId = _db.Events.Any() ? _db.Events.Max(e => e.EventId) + 1 : 1;
             evnt.EventId = newEventId;
-            _events.Add(evnt);
+            _db.Events.Add(evnt);
             return evnt;
         }
 
@@ -56,22 +47,24 @@ namespace EventBookingSystem.DBAccess.MockUp
             {
                 throw new ArgumentNullException(nameof(evnt));
             }
-            var existingEvent = _events.FirstOrDefault(e => e.EventId == evnt.EventId);
+            var existingEvent = _db.Events.FirstOrDefault(e => e.EventId == evnt.EventId);
             if (existingEvent == null)
             {
                 throw new ArgumentException($"Event with EventId {evnt.EventId} does not exist.");
             }
             // upadte other properties as needed
+            existingEvent.Venue = evnt.Venue;
+            existingEvent.VenueId = evnt.VenueId;
         }
 
         public void DeleteEvent(int eventId)
         {
-            var evnt = _events.FirstOrDefault(e => e.EventId == eventId);
+            var evnt = _db.Events.FirstOrDefault(e => e.EventId == eventId);
             if (evnt == null)
             {
                 throw new ArgumentException($"Event with EventId {eventId} does not exist.");
             }
-            _events.Remove(evnt);
+            _db.Events.Remove(evnt);
         }
     }
 }
